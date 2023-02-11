@@ -15,21 +15,33 @@ export default defineComponent({
     DemoForm: new FormBuilder()
       .addField({
         component: VInput,
-        name: "demo",
+        name: "username",
         type: "text",
-        label: "demo",
+        label: "username",
+        props: {
+          value: "",
+        },
         validation: z.string().min(10).max(20),
       })
       .addField({
         component: VInput,
         name: "password",
         type: "password",
-        label: "demo",
+        label: "password",
         props: {
-          value: "demp",
-          modelValue: "demo",
+          value: "a valid password",
         },
         validation: z.string().min(8),
+      })
+      .addField({
+        component: VInput,
+        name: "checkbox",
+        type: "checkbox",
+        label: "checkbox",
+        props: {
+          value: true,
+        },
+        validation: z.boolean(),
       })
       .build(),
   },

@@ -2,18 +2,22 @@
   <form action="" @submit.prevent="submit">
     {{ fields?.length }}
     <div v-for="(field, index) in fields" :key="field.name">
+      <label :for="field.name" class="label">
+        {{ field.label }}
+      </label>
       <component
         :id="field.name"
         :is="field.component"
         :type="field.type"
         v-bind="{ ...field.props, ...field.attrs }"
+        :model-value="field.props?.value"
         @update:modelValue="onChangeHandler($event, field.name, index)"
       />
       <div class="error" v-if="errors[field.name]">
         {{ errors[field.name] }}
       </div>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" :disabled="!submitable">Submit</button>
     <pre>{{ values }}</pre>
     <pre>{{ errors }}</pre>
   </form>
@@ -45,7 +49,7 @@ export default defineComponent({
       default: () => [],
     },
   },
-  inject: ["get", "post"],
+  inject: ["fetch", "upload"],
   data(): DataStructure {
     return {
       errors: {},
@@ -63,7 +67,7 @@ export default defineComponent({
   created() {
     const values: any = {};
     this.fields.forEach(({ name, props }) => {
-      if (props?.value) {
+      if (props?.value != undefined) {
         values[name] = props.value;
       }
     });
@@ -77,7 +81,7 @@ export default defineComponent({
         if (error instanceof ZodError) {
           return {
             valid: false,
-            message: error.issues[0].code,
+            message: error.issues[0].message,
           };
         }
       }
@@ -124,5 +128,9 @@ export default defineComponent({
 <style scoped>
 .error {
   color: rgb(242, 96, 96);
+}
+.label {
+  color: gray;
+  padding: 0 10px;
 }
 </style>
