@@ -9,15 +9,30 @@
         v-bind="{ ...field.props, ...field.attrs }"
         @update:modelValue="onChangeHandler($event, field.name, index)"
       />
+      <div class="error" v-if="errors[field.name]">
+        {{ errors[field.name] }}
+      </div>
     </div>
     <button type="submit">Submit</button>
+    <pre>{{ values }}</pre>
+    <pre>{{ errors }}</pre>
   </form>
 </template>
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 import { ZodError } from "zod";
-import type { Field } from "./FormBuilder";
+import type { Field, ObjectGeneric } from "./FormBuilder";
+
+export interface ValidationResult {
+  valid: boolean;
+  message?: string;
+}
+
+export interface DataStructure {
+  values: ObjectGeneric;
+  errors: ObjectGeneric;
+}
 
 export default defineComponent({
   props: {
@@ -30,33 +45,84 @@ export default defineComponent({
       default: () => [],
     },
   },
-  data() {
-    return { errors: {} };
+  inject: ["get", "post"],
+  data(): DataStructure {
+    return {
+      errors: {},
+      values: {},
+    };
   },
-  // inject: ["get", "post"],
+  computed: {
+    submitable() {
+      const errors: number = [...Object.keys(this.errors)].filter(
+        (i) => this.errors[i] != undefined
+      ).length;
+      return errors === 0;
+    },
+  },
+  created() {
+    const values: any = {};
+    this.fields.forEach(({ name, props }) => {
+      if (props?.value) {
+        values[name] = props.value;
+      }
+    });
+    this.values = values;
+  },
   methods: {
-    validate(value: string, validator: any) {
+    validate(value: string, validator: any): ValidationResult {
       try {
         validator.parse(value);
-        return {
-          message: undefined,
-          valid: true,
-        };
       } catch (error) {
         if (error instanceof ZodError) {
           return {
-            message: error.issues[0].code,
             valid: false,
+            message: error.issues[0].code,
           };
         }
       }
+      return {
+        valid: true,
+      };
     },
-    submit: async () => {},
+    async submit() {
+      for (const { name, validation } of this.fields) {
+        const { valid, message } = this.validate(this.values[name], validation);
+        this.throwErrors(name, valid, message);
+      }
+      if (this.submitable) {
+        console.log("submit!!!");
+      }
+    },
+    throwErrors(
+      fieldName: string,
+      valid: boolean,
+      message: string | undefined
+    ) {
+      if (!valid) {
+        this.errors = {
+          ...this.errors,
+          [fieldName]: message,
+        };
+      } else {
+        this.errors = {
+          ...this.errors,
+          [fieldName]: undefined,
+        };
+      }
+    },
     onChangeHandler(payload: any, fieldName: string, fieldNumber: number) {
       const validator = this.fields[fieldNumber].validation;
       const { valid, message } = this.validate(payload, validator);
-      console.log(valid, message);
+      this.throwErrors(fieldName, valid, message);
+      this.values[fieldName] = payload;
     },
   },
 });
 </script>
+
+<style scoped>
+.error {
+  color: rgb(242, 96, 96);
+}
+</style>

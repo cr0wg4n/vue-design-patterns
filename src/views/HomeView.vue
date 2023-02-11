@@ -29,7 +29,7 @@ export default defineComponent({
           value: "demp",
           modelValue: "demo",
         },
-        validation: z.string().optional(),
+        validation: z.string().min(8),
       })
       .build(),
   },
