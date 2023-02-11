@@ -8,6 +8,7 @@
 import FormBuilder from "@/builders/FormBuilder";
 import VInput from "@/components/form/VInput.vue";
 import { defineComponent } from "vue";
+import { z } from "zod";
 
 export default defineComponent({
   components: {
@@ -17,18 +18,18 @@ export default defineComponent({
         name: "demo",
         type: "text",
         label: "demo",
-        validation: () => {},
+        validation: z.string().min(10).max(20),
       })
       .addField({
         component: VInput,
-        name: "demo",
-        type: "text",
+        name: "password",
+        type: "password",
         label: "demo",
         props: {
           value: "demp",
           modelValue: "demo",
         },
-        validation: () => {},
+        validation: z.string().optional(),
       })
       .build(),
   },

@@ -12,7 +12,7 @@ export interface Field {
   name: string;
   props?: ObjectGeneric;
   attrs?: ObjectGeneric;
-  validation?: () => void;
+  validation?: any;
 }
 
 export default class FormBuilder {
