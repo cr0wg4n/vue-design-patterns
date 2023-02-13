@@ -1,6 +1,5 @@
 <template>
   <form action="" @submit.prevent="submit">
-    {{ fields?.length }}
     <div v-for="(field, index) in fields" :key="field.name">
       <label :for="field.name" class="label">
         {{ field.label }}
@@ -18,8 +17,9 @@
       </div>
     </div>
     <button type="submit" :disabled="!submitable">Submit</button>
+    <br />
+    <br />
     <pre>{{ values }}</pre>
-    <pre>{{ errors }}</pre>
   </form>
 </template>
 
@@ -49,7 +49,6 @@ export default defineComponent({
       default: () => [],
     },
   },
-  inject: ["fetch", "upload"],
   data(): DataStructure {
     return {
       errors: {},
@@ -131,6 +130,6 @@ export default defineComponent({
 }
 .label {
   color: gray;
-  padding: 0 10px;
+  padding-right: 10px;
 }
 </style>

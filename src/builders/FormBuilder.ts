@@ -34,7 +34,6 @@ export default class FormBuilder {
   }
 
   build() {
-    const Provider = this.provider;
     const Fields = this.fields;
 
     return defineComponent({
@@ -45,9 +44,7 @@ export default class FormBuilder {
         },
       },
       render(): VNode {
-        return Provider
-          ? h(Provider, [h(FormFactory, { fields: Fields, id: this.id })])
-          : h(FormFactory, { fields: Fields, id: this.id });
+        return h(FormFactory, { fields: Fields, id: this.id });
       },
     });
   }
