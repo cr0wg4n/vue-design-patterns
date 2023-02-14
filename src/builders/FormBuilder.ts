@@ -23,11 +23,6 @@ export default class FormBuilder {
     this.fields = [];
   }
 
-  withProvider(provider: any) {
-    this.provider = provider || null;
-    return this;
-  }
-
   addField(field: Field) {
     this.fields.push(field);
     return this;

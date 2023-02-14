@@ -6,16 +6,16 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "BuilderPattern",
       component: BuilderPatternView,
     },
     {
-      path: "/about",
-      name: "about",
+      path: "/container-pattern",
+      name: "ContainerPattern",
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      component: () => import("../views/ContainerPatternView.vue"),
     },
   ],
 });
