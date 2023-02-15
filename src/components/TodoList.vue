@@ -43,7 +43,7 @@ export default defineComponent({
 }
 
 .todo:hover {
-  scale: 1.15;
+  scale: 1.1;
 }
 
 .todo__title {

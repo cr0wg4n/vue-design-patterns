@@ -16,6 +16,7 @@
         {{ errors[field.name] }}
       </div>
     </div>
+    <br />
     <button type="submit" :disabled="!submitable">Submit</button>
     <br />
     <br />

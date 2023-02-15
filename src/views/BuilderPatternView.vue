@@ -1,7 +1,6 @@
 <template>
-  <main>
-    <LoginForm />
-  </main>
+  <h2>Builder Pattern</h2>
+  <LoginForm />
 </template>
 
 <script lang="ts">
