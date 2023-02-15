@@ -12,10 +12,12 @@ const router = createRouter({
     {
       path: "/container-pattern",
       name: "ContainerPattern",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/ContainerPatternView.vue"),
+    },
+    {
+      path: "/provide-inject-pattern",
+      name: "ProvideInjectPatternView",
+      component: () => import("../views/ProvideInjectPatternView.vue"),
     },
   ],
 });

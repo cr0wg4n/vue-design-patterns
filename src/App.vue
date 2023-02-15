@@ -8,6 +8,9 @@ import { RouterLink, RouterView } from "vue-router";
       <nav>
         <RouterLink to="/">Builder Pattern</RouterLink>
         <RouterLink to="/container-pattern">Container Pattern</RouterLink>
+        <RouterLink to="/provide-inject-pattern"
+          >Provide Inject Pattern</RouterLink
+        >
       </nav>
     </div>
   </header>
