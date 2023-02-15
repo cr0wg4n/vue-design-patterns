@@ -5,9 +5,6 @@ export interface VisualizationPreferences {
   borders: "square" | "rounded";
 }
 
-// export const VISUALIZATION_PREFERENCES: InjectionKey<VisualizationPreferences> =
-//   Symbol("visualizationPreferences");
-
-export const VISUALIZATION_PREFERENCES = Symbol() as InjectionKey<
+export const VISUALIZATION_PREFERENCES: InjectionKey<
   VisualizationPreferences | any
->;
+> = Symbol("visualizationPreferences");

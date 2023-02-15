@@ -6,8 +6,13 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "BuilderPattern",
+      name: "Home",
       component: BuilderPatternView,
+    },
+    {
+      path: "/builder-pattern",
+      name: "BuilderPattern",
+      component: () => import("../views/BuilderPatternView.vue"),
     },
     {
       path: "/container-pattern",

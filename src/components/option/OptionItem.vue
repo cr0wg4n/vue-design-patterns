@@ -34,6 +34,7 @@ export default defineComponent({
   },
   setup() {
     const injection = inject(VISUALIZATION_PREFERENCES);
+
     return {
       darkMode: injection?.darkMode,
       boders: injection?.borders,

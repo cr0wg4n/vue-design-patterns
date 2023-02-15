@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, provide, reactive, readonly } from "vue";
+import { computed, defineComponent, provide, reactive } from "vue";
 import type { OptionProps } from "./OptionItem.vue";
 import OptionList from "./OptionList.vue";
 import {
@@ -53,12 +53,6 @@ export default defineComponent({
       borders: "square",
       darkMode: false,
     });
-
-    provide(VISUALIZATION_PREFERENCES, {
-      darkMode: computed(() => preferences.darkMode),
-      borders: computed(() => preferences.borders),
-    });
-
     const data = reactive<OptionProps[]>([
       {
         title: "Nunc massa ex, vulputate id tincidunt",
@@ -73,6 +67,11 @@ export default defineComponent({
         image: "https://random.imagecdn.app/500/200#33",
       },
     ]);
+
+    provide(VISUALIZATION_PREFERENCES, {
+      darkMode: computed(() => preferences.darkMode),
+      borders: computed(() => preferences.borders),
+    });
 
     return {
       data,
