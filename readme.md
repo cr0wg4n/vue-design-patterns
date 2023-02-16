@@ -2,6 +2,9 @@
 
 Vue 3 + Design Patterns
 
+## Preview
+
+![Alt text](https://raw.githubusercontent.com/cr0wg4n/vue-design-patterns/main/public/preview.png "preview image")
 
 ## References
 
