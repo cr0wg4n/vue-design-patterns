@@ -15,7 +15,6 @@ export const useTodoStore = defineStore("todos", {
   actions: {
     addTodo(todo: Todo) {
       this.list = [todo, ...this.list];
-      console.log(this.list.length);
     },
     async fetchTodos() {
       const data = await fetch("https://jsonplaceholder.typicode.com/todos");

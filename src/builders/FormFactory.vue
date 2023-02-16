@@ -95,7 +95,7 @@ export default defineComponent({
         this.throwErrors(name, valid, message);
       }
       if (this.submitable) {
-        console.log("submit!!!");
+        alert("Submitted!");
       }
     },
     throwErrors(
