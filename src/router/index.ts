@@ -24,6 +24,11 @@ const router = createRouter({
       name: "ProvideInjectPatternView",
       component: () => import("../views/ProvideInjectPatternView.vue"),
     },
+    {
+      path: "/composable-pattern",
+      name: "ComposablePatternView",
+      component: () => import("../views/ComposablePatternView.vue"),
+    },
   ],
 });
 

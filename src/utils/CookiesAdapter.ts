@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-interface CookieOptions {
+export interface CookieOptions {
   expires?: number | Date | undefined;
   path?: string | undefined;
   domain?: string | undefined;
@@ -20,6 +20,10 @@ export default class CookiesAdapter {
     return this.cookies.get(key);
   }
 
+  getAll(): object {
+    return this.cookies.get();
+  }
+
   set(
     key: string,
     value: string,
@@ -28,7 +32,7 @@ export default class CookiesAdapter {
     return this.cookies.set(key, value, options);
   }
 
-  delete(key: string) {
+  remove(key: string) {
     this.cookies.remove(key);
   }
 }
