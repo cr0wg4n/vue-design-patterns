@@ -1,7 +1,7 @@
 <template>
-  <h2>SFC Approach</h2>
+  <h4>SFC Approach</h4>
   <TodoList />
-  <h2>Container Pattern Approach</h2>
+  <h4>Container Pattern Approach</h4>
   <TodoContainer />
 </template>
 

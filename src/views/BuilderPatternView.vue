@@ -1,5 +1,4 @@
 <template>
-  <h2>Builder Pattern</h2>
   <LoginForm />
 </template>
 

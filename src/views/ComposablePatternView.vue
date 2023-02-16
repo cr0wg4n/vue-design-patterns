@@ -7,6 +7,7 @@
     v-model="value"
     placeholder="Introduce a value"
   />
+  <br />
   <button @click="set(key, value)">Add/Update Cookie</button>
   <br />
 
