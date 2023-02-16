@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import type { Todo } from "@/store/vuex/todo";
+import type { Todo } from "@/store/types/todo";
 import { defineComponent, type PropType } from "vue";
 
 export default defineComponent({

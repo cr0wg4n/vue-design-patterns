@@ -12,6 +12,9 @@ import { RouterLink, RouterView } from "vue-router";
           >Provide Inject Pattern</RouterLink
         >
         <RouterLink to="/composable-pattern">Composable Pattern</RouterLink>
+        <RouterLink to="/store-management-pattern"
+          >Store Management Pattern</RouterLink
+        >
       </nav>
     </div>
   </header>

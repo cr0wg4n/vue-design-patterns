@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "js-cookie": "^3.0.1",
+    "pinia": "^2.0.30",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0",

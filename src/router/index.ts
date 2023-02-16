@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import BuilderPatternView from "../views/BuilderPatternView.vue";
+import StoreManagmentPatternView from "../views/StoreManagmentPatternView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,13 +22,18 @@ const router = createRouter({
     },
     {
       path: "/provide-inject-pattern",
-      name: "ProvideInjectPatternView",
+      name: "ProvideInjectPattern",
       component: () => import("../views/ProvideInjectPatternView.vue"),
     },
     {
       path: "/composable-pattern",
-      name: "ComposablePatternView",
+      name: "ComposablePattern",
       component: () => import("../views/ComposablePatternView.vue"),
+    },
+    {
+      path: "/store-management-pattern",
+      name: "StoreManagmentPattern",
+      component: () => import("../views/StoreManagmentPatternView.vue"),
     },
   ],
 });
