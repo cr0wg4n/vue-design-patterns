@@ -9,28 +9,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, type Ref } from "vue";
+<script lang="ts" setup>
+import { ref, type Ref } from "vue";
 
 export interface Todo {
   title: string;
   completed: boolean;
 }
 
-export default defineComponent({
-  setup() {
-    const todos: Ref<Todo[]> = ref([]);
-    const getData = async () => {
-      const data = await fetch("https://jsonplaceholder.typicode.com/todos");
-      todos.value = await data.json();
-    };
+const todos: Ref<Todo[]> = ref([]);
 
-    getData();
-    return {
-      todos,
-    };
-  },
-});
+const getData = async () => {
+  const data = await fetch("https://jsonplaceholder.typicode.com/todos");
+  todos.value = await data.json();
+};
+
+getData();
 </script>
 
 <style scoped>
@@ -43,7 +37,7 @@ export default defineComponent({
 }
 
 .todo:hover {
-  scale: 1.1;
+  scale: 1.005;
 }
 
 .todo__title {

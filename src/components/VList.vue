@@ -1,4 +1,5 @@
 <template>
+  ⚠️ Only shows 10 todos (actual length: {{ data.length }})
   <div class="todo" v-for="(item, index) in data.slice(0, 10)" :key="index">
     <span :class="['todo__title', item.completed && 'todo__title--completed']">
       {{ item.title }}
@@ -33,7 +34,7 @@ export default defineComponent({
 }
 
 .todo:hover {
-  scale: 1.1;
+  scale: 1.005;
 }
 
 .todo__title {
