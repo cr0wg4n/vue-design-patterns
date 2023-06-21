@@ -27,7 +27,7 @@ export default class FormDirector {
         props: {
           value: "default password",
         },
-        validation: z.string().min(10),
+        validation: z.string().min(15),
       })
       .build();
   }

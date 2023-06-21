@@ -24,9 +24,9 @@
   </form>
 </template>
 
-<script lang="ts">
-import { defineComponent, type PropType } from "vue";
+<script lang="ts" setup>
 import { ZodError } from "zod";
+import { reactive, onMounted, computed } from "vue";
 import type { Field, ObjectGeneric } from "./FormBuilder";
 
 export interface ValidationResult {
@@ -34,95 +34,85 @@ export interface ValidationResult {
   message?: string;
 }
 
-export interface DataStructure {
-  values: ObjectGeneric;
-  errors: ObjectGeneric;
+interface FormFactoryProps {
+  id: string | number;
+  fields: Field[];
 }
 
-export default defineComponent({
-  props: {
-    id: {
-      type: [String, Number],
-      default: null,
-    },
-    fields: {
-      type: Array as PropType<Field[]>,
-      default: () => [],
-    },
-  },
-  data(): DataStructure {
-    return {
-      errors: {},
-      values: {},
-    };
-  },
-  computed: {
-    submitable() {
-      const errors: number = [...Object.keys(this.errors)].filter(
-        (i) => this.errors[i] != undefined
-      ).length;
-      return errors === 0;
-    },
-  },
-  created() {
-    const values: any = {};
-    this.fields.forEach(({ name, props }) => {
-      if (props?.value != undefined) {
-        values[name] = props.value;
-      }
-    });
-    this.values = values;
-  },
-  methods: {
-    validate(value: string, validator: any): ValidationResult {
-      try {
-        validator.parse(value);
-      } catch (error) {
-        if (error instanceof ZodError) {
-          return {
-            valid: false,
-            message: error.issues[0].message,
-          };
-        }
-      }
-      return {
-        valid: true,
-      };
-    },
-    async submit() {
-      for (const { name, validation } of this.fields) {
-        const { valid, message } = this.validate(this.values[name], validation);
-        this.throwErrors(name, valid, message);
-      }
-      if (this.submitable) {
-        alert("Submitted!");
-      }
-    },
-    throwErrors(
-      fieldName: string,
-      valid: boolean,
-      message: string | undefined
-    ) {
-      if (!valid) {
-        this.errors = {
-          ...this.errors,
-          [fieldName]: message,
-        };
-      } else {
-        this.errors = {
-          ...this.errors,
-          [fieldName]: undefined,
-        };
-      }
-    },
-    onChangeHandler(payload: any, fieldName: string, fieldNumber: number) {
-      const validator = this.fields[fieldNumber].validation;
-      const { valid, message } = this.validate(payload, validator);
-      this.throwErrors(fieldName, valid, message);
-      this.values[fieldName] = payload;
-    },
-  },
+const props = defineProps<FormFactoryProps>();
+
+const values = reactive<ObjectGeneric>({});
+const errors = reactive<ObjectGeneric>({});
+
+const submitable = computed(() => {
+  const _errors: number = [...Object.keys(errors)].filter(
+    (i) => errors[i] != undefined
+  ).length;
+  return _errors === 0;
 });
+
+onMounted(() => {
+  props.fields.forEach(({ name, props }) => {
+    if (props?.value != undefined) {
+      values[name] = props.value;
+    }
+  });
+});
+
+const validate = (value: string, validator: any): ValidationResult => {
+  try {
+    validator.parse(value);
+  } catch (error) {
+    if (error instanceof ZodError) {
+      return {
+        valid: false,
+        message: error.issues[0].message,
+      };
+    }
+  }
+  return {
+    valid: true,
+  };
+};
+
+const submit = async () => {
+  for (const { name, validation } of props.fields) {
+    const { valid, message } = validate(values[name], validation);
+    throwErrors(name, valid, message);
+  }
+  if (submitable.value) {
+    alert("Submitted!");
+  }
+};
+
+const throwErrors = (
+  fieldName: string,
+  valid: boolean,
+  message: string | undefined
+) => {
+  if (!valid) {
+    Object.assign(errors, {
+      ...errors,
+      [fieldName]: message,
+    });
+  } else {
+    Object.assign(errors, {
+      ...errors,
+      [fieldName]: undefined,
+    });
+  }
+};
+
+const onChangeHandler = (
+  payload: any,
+  fieldName: string,
+  fieldNumber: number
+) => {
+  const validator = props.fields[fieldNumber].validation;
+  const { valid, message } = validate(payload, validator);
+  throwErrors(fieldName, valid, message);
+  values[fieldName] = payload;
+};
 </script>
 
 <style scoped>
