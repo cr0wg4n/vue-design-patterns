@@ -8,7 +8,7 @@
   />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 const props = defineProps({
   type: {
     default: null,
@@ -34,5 +34,3 @@ function onChangeHandler(event: any) {
   props.type === "checkbox" && emit("update:modelValue", event.target.checked);
 }
 </script>
-
-<style scoped></style>
