@@ -10,18 +10,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type { Todo } from "@/store/types/todo";
-import { defineComponent, type PropType } from "vue";
 
-export default defineComponent({
-  props: {
-    data: {
-      type: Array as PropType<Todo[]>,
-      default: () => [],
-    },
-  },
-});
+interface VListProps {
+  data: Todo[];
+}
+
+defineProps<VListProps>();
 </script>
 
 <style scoped>

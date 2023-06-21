@@ -12,35 +12,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, inject } from "vue";
+<script lang="ts" setup>
+import { inject } from "vue";
 import { VISUALIZATION_PREFERENCES } from "./OptionSymbols";
 
-export interface OptionProps {
+export interface OptionItemProps {
   title: string;
   image: string;
 }
 
-export default defineComponent({
-  props: {
-    title: {
-      type: String,
-      default: undefined,
-    },
-    image: {
-      type: String,
-      default: undefined,
-    },
-  },
-  setup() {
-    const injection = inject(VISUALIZATION_PREFERENCES);
+defineProps<OptionItemProps>();
 
-    return {
-      darkMode: injection?.darkMode,
-      boders: injection?.borders,
-    };
-  },
-});
+const injection = inject(VISUALIZATION_PREFERENCES);
+const darkMode = injection?.darkMode;
+const boders = injection?.borders;
 </script>
 
 <style scoped>

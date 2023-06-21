@@ -2,14 +2,9 @@
   <LoginForm />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import FormBuilder from "@/builders/FormBuilder";
 import FormDirector from "@/builders/FormDirector";
-import { defineComponent } from "vue";
 
-export default defineComponent({
-  components: {
-    LoginForm: new FormDirector(new FormBuilder()).makeLoginForm(),
-  },
-});
+const LoginForm = new FormDirector(new FormBuilder()).makeLoginForm();
 </script>

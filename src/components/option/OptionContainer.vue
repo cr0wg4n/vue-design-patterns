@@ -38,46 +38,37 @@
   <OptionList :data="data" />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, provide, reactive } from "vue";
-import type { OptionProps } from "./OptionItem.vue";
+<script lang="ts" setup>
+import { computed, provide, reactive } from "vue";
+import type { OptionItemProps } from "./OptionItem.vue";
 import OptionList from "./OptionList.vue";
 import {
   VISUALIZATION_PREFERENCES,
   type VisualizationPreferences,
 } from "./OptionSymbols";
 
-export default defineComponent({
-  setup() {
-    const preferences = reactive<VisualizationPreferences>({
-      borders: "square",
-      darkMode: false,
-    });
-    const data = reactive<OptionProps[]>([
-      {
-        title: "Nunc massa ex, vulputate id tincidunt",
-        image: "https://random.imagecdn.app/500/200#1",
-      },
-      {
-        title: "Donec facilisis, mauris a vulputate",
-        image: "https://random.imagecdn.app/500/200#12",
-      },
-      {
-        title: " Curabitur luctus mollis aliquam",
-        image: "https://random.imagecdn.app/500/200#33",
-      },
-    ]);
+const preferences = reactive<VisualizationPreferences>({
+  borders: "square",
+  darkMode: false,
+});
 
-    provide(VISUALIZATION_PREFERENCES, {
-      darkMode: computed(() => preferences.darkMode),
-      borders: computed(() => preferences.borders),
-    });
-
-    return {
-      data,
-      preferences,
-    };
+const data = reactive<OptionItemProps[]>([
+  {
+    title: "Nunc massa ex, vulputate id tincidunt",
+    image: "https://random.imagecdn.app/500/200#1",
   },
-  components: { OptionList },
+  {
+    title: "Donec facilisis, mauris a vulputate",
+    image: "https://random.imagecdn.app/500/200#12",
+  },
+  {
+    title: " Curabitur luctus mollis aliquam",
+    image: "https://random.imagecdn.app/500/200#33",
+  },
+]);
+
+provide(VISUALIZATION_PREFERENCES, {
+  darkMode: computed(() => preferences.darkMode),
+  borders: computed(() => preferences.borders),
 });
 </script>

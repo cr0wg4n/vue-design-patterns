@@ -5,7 +5,7 @@
   <TodoContainer />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import TodoContainer from "@/components/TodoContainer.vue";
 import TodoList from "@/components/TodoList.vue";
 </script>

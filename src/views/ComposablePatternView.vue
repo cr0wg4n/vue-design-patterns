@@ -24,31 +24,15 @@
   <pre>{{ cookies }}</pre>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import useCookies from "@/utils/useCookies";
-import { computed, defineComponent, ref } from "vue";
+import { computed, ref } from "vue";
 
-export default defineComponent({
-  setup() {
-    const { get, set, remove, cookies } = useCookies();
-    const selectedKey = ref(Object.keys(cookies.value)[0] || "");
-    const key = ref("");
-    const value = ref("");
-    const keys = computed(() => Object.keys(cookies.value));
-
-    return {
-      key,
-      value,
-      keys,
-      selectedKey,
-      // useCookies
-      get,
-      set,
-      remove,
-      cookies,
-    };
-  },
-});
+const { set, remove, cookies } = useCookies();
+const selectedKey = ref(Object.keys(cookies.value)[0] || "");
+const key = ref("");
+const value = ref("");
+const keys = computed(() => Object.keys(cookies.value));
 </script>
 
 <style scoped>

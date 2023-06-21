@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <OptionContainer />
-  </div>
+  <OptionContainer />
 </template>
 
 <script lang="ts" setup>
